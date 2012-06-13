@@ -5,7 +5,7 @@ function particle_i_I_S = function_approximation_I_S(domain, i, boundary, sph)
 
 
 %sph
-sph_smoothing_length = function_sph_smoothing_length(domain, i);
+sph_smoothing_length = function_sph_smoothing_length(domain, i, sph);
 %test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 %sph_smoothing_length = sph.smoothing_length;
 %-------------------------------------------------------------------------

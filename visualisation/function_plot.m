@@ -2,7 +2,7 @@ function function_plot(domain, visualisation_axis, handles)
 %FUNCTION_VISUALIZATION Summary of this function goes here
 %   Detailed explanation goes here
 
-figure(1)
+figure(2)
 
 subplot(2,1,1);
 
