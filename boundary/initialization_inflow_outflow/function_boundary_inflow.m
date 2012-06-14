@@ -15,6 +15,7 @@ particle_inflow = [ particle_interval
                     0
                     0
                     boundary.inflow.particle_velocity
+                    0       
                     1];  %1 -> moving!
 
 for m = 1:number_particles_inflow

@@ -15,6 +15,7 @@ particle_lower = [  boundary.general.channel_end
                     0
                     0
                     0
+                    0   
                     0];  %0 -> not moving!
                 
 domain_lower = particle_lower;

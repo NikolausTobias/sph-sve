@@ -14,6 +14,7 @@ particle_initial = [0
                     0
                     0
                     0
+                    0       
                     1];  %1 -> moving!
 
 domain_initial = particle_initial;
@@ -26,4 +27,3 @@ for m = 2:number_particles_initial
 end
 
 end
-

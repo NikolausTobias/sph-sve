@@ -3,11 +3,50 @@ function function_computation(time, computation, boundary, sph, visualization, h
 %   Detailed explanation goes here
 
 %INITZIALISATION
-[domain, boundary_upper_particles_number_particles, boundary_lower_particles_number_particles] = function_boundary_initialization(boundary);
 
+%initial domain
+str = get(handles.popupmenuSelectTest,'String');
+val = get(handles.popupmenuSelectTest,'Value');
+
+switch str{val}
+    case 'Select Testcase'
+        warndlg('Please select a Testcase!')
+        return
+    case 'channel'
+        [domain, boundary_upper_particles_number_particles, boundary_lower_particles_number_particles] = function_boundary_initialization_channel(boundary);
+    case 'dambreak'
+        boundary.inflow.inflow = 0;
+        boundary_upper_particles_number_particles = 0;
+        boundary_lower_particles_number_particles = 0;
+        domain = function_boundary_initialization_dambreak(boundary);
+        %assignin('base', 'domain', domain);
+end
+
+%initial smoothing length
+domain3 = zeros(size(domain,2),1);
+domain8 = zeros(size(domain,2),1);
+
+for i = 1:length(domain(1,:))
+    if (domain(end,i) == 1)
+        %-------------------------------------------------------------------------
+        sph_smoothing_length_initial = function_sph_smoothing_length_initial(domain, i, sph);
+        
+        particle_i_area_current_computed = function_approximation_area(domain, i, sph_smoothing_length_initial);
+        
+        domain3(i) = particle_i_area_current_computed;
+        domain8(i) = sph_smoothing_length_initial;
+        %-------------------------------------------------------------------------
+    end
+end
+
+domain(3,:) = domain3;
+domain(8,:) = domain8;
+
+%initial counts
 particles_number_outflow_lower = 0;
 particles_number_reflect_upper = 0;
 particles_number_inflow = 0;
+%-------------------------------------------------------------------------
 
 % figure(1)
 % plot(domain(1,:),domain(4,:),'bo');
@@ -55,26 +94,38 @@ for t = time.start:time.increment:time.end
     
     
     %STEP 1
+    %iterate smoothing length
     %cross-sectional area approximation
     %count through particle i
     
-    domain4 = zeros(size(domain,2),1);
     domain3 = zeros(size(domain,2),1);
+    domain4 = zeros(size(domain,2),1);
+    domain8 = zeros(size(domain,2),1);
     
     parfor i = 1:length(domain(1,:))
         if (domain(end,i) == 1)
             %-------------------------------------------------------------------------
-            [particle_i_area_current_computed, particle_i_area_derivation_current_computed] = function_approximation_area(domain, i, boundary, sph);
-%             domain(3,i) = particle_i_area_current_computed;
-%             domain(4,i) = particle_i_area_derivation_current_computed;
+            sph_smoothing_length_old = domain(8,i);
+            particle_i_area_old = domain(3,i);
+            particle_i_area_current_computed = function_approximation_area(domain, i, sph_smoothing_length_old);
+            
+            for m = 1:10
+                sph_smoothing_length_current_computed = sph_smoothing_length_old*particle_i_area_old/particle_i_area_current_computed;
+                particle_i_area_current_computed = function_approximation_area(domain, i, sph_smoothing_length_current_computed);
+            end
+            
+            particle_i_area_derivation_current_computed = function_approximation_area_derivation(domain, i);
+            
             domain3(i) = particle_i_area_current_computed;
             domain4(i) = particle_i_area_derivation_current_computed;
-%             %-------------------------------------------------------------------------
+            domain8(i) = sph_smoothing_length_current_computed;
+            %-------------------------------------------------------------------------
         end
     end
 
     domain(3,:) = domain3;
     domain(4,:) = domain4;
+    domain(8,:) = domain8;
     %-------------------------------------------------------------------------
     
     
@@ -95,7 +146,7 @@ for t = time.start:time.increment:time.end
             %domain(5,i) = boundary.I_S;
             %-------------------------------------------------------------------------
             %-------------------------------------------------------------------------
-            particle_i_velocity_next_computed = function_computation_acceleration_integration(domain, i, time, boundary, sph);
+            particle_i_velocity_next_computed = function_computation_acceleration_integration(domain, i, time, boundary);
             %domain(7,i) = particle_i_velocity_next_computed;
             domain7(i) = particle_i_velocity_next_computed;
             %-------------------------------------------------------------------------
@@ -120,7 +171,7 @@ for t = time.start:time.increment:time.end
         if (domain(end,i) == 1 && particle_velocity_stop_iteration(i) == 0)
 
             %-------------------------------------------------------------------------
-            particle_i_velocity_next_computed = function_computation_acceleration_integration(domain, i, time, boundary, sph);
+            particle_i_velocity_next_computed = function_computation_acceleration_integration(domain, i, time, boundary);
             %-------------------------------------------------------------------------
             
 %             if (abs(particle_i_velocity_next_computed - domain(7,i)) < computation.velocity_iteration_truncation_error)
@@ -175,13 +226,13 @@ for t = time.start:time.increment:time.end
     %-------------------------------------------------------------------------
     
 
-    %boundary outflow lower
-    [domain, particles_number_outflow_lower] = function_boundary_outflow_lower(domain, handles, boundary.general.channel_end, boundary_lower_particles_number_particles, particles_number_outflow_lower);
-    %-------------------------------------------------------------------------
+%     %boundary lower - outflow
+%     [domain, particles_number_outflow_lower] = function_boundary_lower(domain, handles, boundary.general.channel_end, boundary_lower_particles_number_particles, particles_number_outflow_lower);
+%     %-------------------------------------------------------------------------
     
     
-    %boundary outflow upper - reflect particles
-    [domain, particles_number_reflect_upper] = function_boundary_reflect_upper(domain, handles, particles_number_reflect_upper);
+    %boundary upper - reflect
+    [domain, particles_number_reflect_upper] = function_boundary_upper(domain, handles, particles_number_reflect_upper);
     %-------------------------------------------------------------------------
     
     

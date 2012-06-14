@@ -51,13 +51,12 @@ boundary.I_S = str2num(get(handles.editIS,'string'));
 %-------------------------------------------------------------------------
 
 %SPH
-%sph.smoothing_length = 1;     %m
-sph.kappa = str2num(get(handles.editSPHKappa,'string'));
+sph.sigma = str2num(get(handles.editSPHSigma,'string'));
 %-------------------------------------------------------------------------
 
 
 %visualization
-visualization.plot_axis = [     -boundary.upper_particles.length, boundary.general.channel_end+5, 0, 4
-                                -boundary.upper_particles.length, boundary.general.channel_end+5, -5, +5];
+visualization.plot_axis = [     -boundary.upper_particles.length, boundary.general.channel_end+5, 0, 5
+                                -boundary.upper_particles.length, boundary.general.channel_end+5, -5, +15];
 visualization.q = 0;
 %-------------------------------------------------------------------------

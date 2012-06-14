@@ -4,7 +4,7 @@ function W = function_sph_kernel_poly(r, h)
 %r = sph_distance
 %h = sph_smoothing_length
 
-W = 4/(pi()*h^7)*(h^2-r^2)^3;
+W = 35/(16*h^7)*(h^2-r^2)^3;
 
 end
 

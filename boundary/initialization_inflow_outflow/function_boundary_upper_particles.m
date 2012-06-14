@@ -17,7 +17,8 @@ particle_upper = [  -boundary.upper_particles.length
                     0
                     0
                     0
-                    0];  %0 -> not moving!
+                    0
+                    0];  %0 -> not moving
 
 domain_upper = particle_upper;
                 

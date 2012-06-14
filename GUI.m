@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 09-Jun-2012 02:27:26
+% Last Modified by GUIDE v2.5 14-Jun-2012 02:28:24
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -81,6 +81,7 @@ function pushbuttonStart_Callback(hObject, eventdata, handles)
 
 addpath('constants')
 addpath('SPH')
+addpath('external')
 addpath('approximation')
 addpath('boundary')
 addpath('boundary/initialization_inflow_outflow')
@@ -182,18 +183,18 @@ end
 
 
 
-function editSPHKappa_Callback(hObject, eventdata, handles)
-% hObject    handle to editSPHKappa (see GCBO)
+function editSPHSigma_Callback(hObject, eventdata, handles)
+% hObject    handle to editSPHSigma (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editSPHKappa as text
-%        str2double(get(hObject,'String')) returns contents of editSPHKappa as a double
+% Hints: get(hObject,'String') returns contents of editSPHSigma as text
+%        str2double(get(hObject,'String')) returns contents of editSPHSigma as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function editSPHKappa_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editSPHKappa (see GCBO)
+function editSPHSigma_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editSPHSigma (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -470,6 +471,75 @@ function editInflowInterval_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function editInflowInterval_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to editInflowInterval (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenuSelectTest.
+function popupmenuSelectTest_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenuSelectTest (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenuSelectTest contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenuSelectTest
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenuSelectTest_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenuSelectTest (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit22_Callback(hObject, eventdata, handles)
+% hObject    handle to edit22 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit22 as text
+%        str2double(get(hObject,'String')) returns contents of edit22 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit22_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit22 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit23_Callback(hObject, eventdata, handles)
+% hObject    handle to edit23 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit23 as text
+%        str2double(get(hObject,'String')) returns contents of edit23 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit23_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit23 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 

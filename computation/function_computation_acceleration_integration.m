@@ -1,4 +1,4 @@
-function particle_i_velocity_next_computed = function_computation_acceleration_integration(domain, i, time, boundary, sph)
+function particle_i_velocity_next_computed = function_computation_acceleration_integration(domain, i, time, boundary)
 %FUNCTION_COMPUTATION_ACCELERATION Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -12,7 +12,7 @@ particle_i_I_E_current_computed = function_computation_I_E(boundary, particle_i_
 %-------------------------------------------------------------------------
 particle_i_fluid_height_derivation_current_computed = particle_i_area_derivation_current_computed/boundary.general.channel_width;     %rectangular channel - has also be changed in funktion fluid height!!!!!!!!!!!!!!!!!!
 %-------------------------------------------------------------------------
-particle_i_velocity_derivation_old_next_computed = function_approximation_velocity_derivation(domain, i, boundary, sph);
+particle_i_velocity_derivation_old_next_computed = function_approximation_velocity_derivation(domain, i);
 %-------------------------------------------------------------------------
 
 %test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -21,12 +21,16 @@ particle_i_velocity_derivation_old_next_computed = function_approximation_veloci
 
 
 %test!!!
-particle_i_acceleration_next_computed = gravity()*(particle_i_I_S_current_computed - particle_i_I_E_current_computed - particle_i_fluid_height_derivation_current_computed) - particle_i_velocity_old_next*particle_i_velocity_derivation_old_next_computed;
+%particle_i_acceleration_next_computed = gravity()*(particle_i_I_S_current_computed - particle_i_I_E_current_computed - particle_i_fluid_height_derivation_current_computed) - particle_i_velocity_old_next*particle_i_velocity_derivation_old_next_computed;
 %particle_i_acceleration_next_computed = gravity()*(particle_i_I_S_current_computed - particle_i_I_E_current_computed);
 
 %particle_i_acceleration_next_computed = gravity()*(particle_i_I_S_current_computed - particle_i_I_E_current_computed) - particle_i_velocity_old_next*particle_i_velocity_derivation_old_next_computed;
 
-
+%dambreak
+%particle_i_acceleration_next_computed = gravity()*(particle_i_I_S_current_computed - particle_i_I_E_current_computed - particle_i_fluid_height_derivation_current_computed) - particle_i_velocity_old_next*particle_i_velocity_derivation_old_next_computed;
+%particle_i_acceleration_next_computed = gravity()*particle_i_fluid_height_derivation_current_computed - particle_i_velocity_old_next*particle_i_velocity_derivation_old_next_computed;
+%particle_i_acceleration_next_computed = - particle_i_velocity_old_next*particle_i_velocity_derivation_old_next_computed;
+particle_i_acceleration_next_computed = gravity()*particle_i_fluid_height_derivation_current_computed;
 %!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 %-------------------------------------------------------------------------

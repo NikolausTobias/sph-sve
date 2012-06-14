@@ -1,18 +1,9 @@
-function [particle_i_area, particle_i_area_derivation] = function_approximation_area(domain, i, boundary, sph)
+function particle_i_area = function_approximation_area(domain, i, sph_smoothing_length)
 %FUNCTION_PARTICLE_FIND_NEIGHBOURS Summary of this function goes here
 %   Detailed explanation goes here
 
-
-
-%sph
-sph_smoothing_length = function_sph_smoothing_length(domain, i, sph);
-%test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%sph_smoothing_length = sph.smoothing_length;
-%-------------------------------------------------------------------------
-
 %initialization
 particle_i_area = 0;
-particle_i_area_derivation = 0;
 %-------------------------------------------------------------------------
 
 %search above
@@ -34,10 +25,8 @@ if (j <= length(domain(1,:)))
         particle_j_volume = domain(2,j);
         %-------------------------------------------------------------------------        
         sph_kernel_poly = function_sph_kernel_poly(particle_distance, sph_smoothing_length);
-        sph_kernel_poly_derivation = function_sph_kernel_poly_derivation(particle_distance, sph_smoothing_length);
         %-------------------------------------------------------------------------
         particle_i_area = particle_i_area + particle_j_volume*sph_kernel_poly;
-        particle_i_area_derivation = particle_i_area_derivation + particle_j_volume*signum*sph_kernel_poly_derivation;
         %-------------------------------------------------------------------------
         %-------------------------------------------------------------------------
         
@@ -68,10 +57,8 @@ if (j >= 1)
         particle_j_volume = domain(2,j);
         %-------------------------------------------------------------------------        
         sph_kernel_poly = function_sph_kernel_poly(particle_distance, sph_smoothing_length);
-        sph_kernel_poly_derivation = function_sph_kernel_poly_derivation(particle_distance, sph_smoothing_length);
         %-------------------------------------------------------------------------
         particle_i_area = particle_i_area + particle_j_volume*sph_kernel_poly;
-        particle_i_area_derivation = particle_i_area_derivation + particle_j_volume*signum*sph_kernel_poly_derivation;
         %-------------------------------------------------------------------------
         %-------------------------------------------------------------------------
 

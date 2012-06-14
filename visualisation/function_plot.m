@@ -2,14 +2,18 @@ function function_plot(domain, visualisation_axis, handles)
 %FUNCTION_VISUALIZATION Summary of this function goes here
 %   Detailed explanation goes here
 
-figure(2)
+% figure(2)
+% 
+% x = [-10:0.1:50];
+% plot(x,domain(3,:),'k')
 
+figure(3)
 subplot(2,1,1);
 
 plot(domain(1,:),domain(3,:),'b.')
-hold on
-plot(domain(1,:),domain(3,:),'r')
-hold off
+% hold on
+% plot(domain(1,:),domain(3,:),'r')
+% hold off
 grid
 axis(visualisation_axis(1,:))
 %title('Cross-Sectional Area')

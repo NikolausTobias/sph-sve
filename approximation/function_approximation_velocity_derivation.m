@@ -1,13 +1,9 @@
-function particle_i_velocity_derivation = function_approximation_velocity_derivation(domain, i, boundary, sph)
+function particle_i_velocity_derivation = function_approximation_velocity_derivation(domain, i)
 %FUNCTION_PARTICLE_FIND_NEIGHBOURS Summary of this function goes here
 %   Detailed explanation goes here
 
-
-
 %sph
-sph_smoothing_length = function_sph_smoothing_length(domain, i, sph);
-%test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%sph_smoothing_length = sph.smoothing_length;
+sph_smoothing_length = domain(8,i);
 %-------------------------------------------------------------------------
 
 %initialization

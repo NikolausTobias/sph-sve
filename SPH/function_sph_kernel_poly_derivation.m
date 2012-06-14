@@ -5,6 +5,6 @@ function Wd = function_sph_kernel_poly_derivation(r, h)
 %h = sph_smoothing_length
 
 
-Wd = -24/(pi()*h^7)*(h^2-r^2)^2;
+Wd = -105*r/(8*h^7)*(h^2-r^2)^2;
 
 end
